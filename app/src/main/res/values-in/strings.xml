@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="welcome_text">Selamat Datang di Story App</string>
+    <string name="login_text">Masuk</string>
+    <string name="register_text">Daftar</string>
+    <string name="nama">Nama</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registerTop">Daftar</string>
+    <string name="loginTop">Masuk</string>
+    <string name="logout">Keluar</string>
+    <string name="upload">Unggah</string>
+    <string name="camera_x">CameraX</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="setting_language">Pengaturan Bahasa</string>
+    <string name="description">Deskripsi</string>
+    <string name="profilepic">Foto Profil</string>
+</resources>

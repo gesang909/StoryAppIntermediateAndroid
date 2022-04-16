@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="welcome_text">Welcome to Story App</string>
+    <string name="login_text">Login</string>
+    <string name="register_text">Register</string>
+    <string name="nama">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registerTop">Register</string>
+    <string name="loginTop">Login</string>
+    <string name="logout">Logout</string>
+    <string name="upload">Upload</string>
+    <string name="camera_x">CameraX</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="setting_language">Setting Language</string>
+    <string name="description">Description</string>
+    <string name="profilepic">Profile Picture</string>
+</resources>
