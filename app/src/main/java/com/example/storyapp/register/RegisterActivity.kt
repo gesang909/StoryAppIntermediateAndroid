@@ -82,15 +82,6 @@ class RegisterActivity : AppCompatActivity() {
                     ).show()
                     showLoading(false)
                 }
-                password.length < 6 -> {
-                    binding.EditText3.error = "Masukkan password lebih dari 6 karakter"
-                    Toast.makeText(
-                        applicationContext,
-                        "Password harus lebih dari 6 karakter",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    showLoading(false)
-                }
                 else -> {
                     val register = ApiConfig().getApiService().register(name, email, password)
                     register.enqueue(object : Callback<RegisterResponse> {

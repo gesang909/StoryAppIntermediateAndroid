@@ -53,7 +53,13 @@ class MyEditText : AppCompatEditText, View.OnTouchListener {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.toString().isNotEmpty()) showClearButton() else hideClearButton()
+                if (s.toString().length < 6 && s.toString().isNotEmpty()) {
+                    error = "Harus lebih dari 6 karakter"
+                    showClearButton()
+                } else if (s.toString().isNotEmpty()) {
+                    showClearButton()
+                    error = null
+                } else hideClearButton()
             }
 
             override fun afterTextChanged(s: Editable) {
