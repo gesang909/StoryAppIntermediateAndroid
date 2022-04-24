@@ -28,24 +28,57 @@
 
     <ImageView
         android:id="@+id/photoUrl"
-        android:transitionName="profile"
         android:layout_width="256dp"
         android:layout_height="256dp"
         android:layout_margin="8dp"
+        android:contentDescription="@string/profilepic"
+        android:transitionName="profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline8"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@string/profilepic" />
+        tools:ignore="ImageContrastCheck"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/description"
-        android:transitionName="description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/description"
+        android:transitionName="description"
         app:layout_constraintEnd_toEndOf="@+id/photoUrl"
         app:layout_constraintStart_toStartOf="@+id/photoUrl"
         app:layout_constraintTop_toBottomOf="@+id/photoUrl" />
+
+    <Button
+        android:id="@+id/buttonMaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_their_location"
+        android:textColor="#4E342E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lon" />
+
+    <TextView
+        android:id="@+id/lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/nama"
+        app:layout_constraintEnd_toEndOf="@+id/photoUrl"
+        app:layout_constraintStart_toStartOf="@+id/photoUrl"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <TextView
+        android:id="@+id/lon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/nama"
+        app:layout_constraintEnd_toEndOf="@+id/photoUrl"
+        app:layout_constraintStart_toStartOf="@+id/photoUrl"
+        app:layout_constraintTop_toBottomOf="@+id/lat" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,4 +16,12 @@
     <string name="setting_language">Setting Language</string>
     <string name="description">Description</string>
     <string name="profilepic">Profile Picture</string>
+    <string name="title_activity_maps">Their Location</string>
+    <string name="see_their_location">See Their Location</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
+    <string name="title_activity_list_maps">Map of Users</string>
+    <string name="switch_camera">switch camera</string>
 </resources>

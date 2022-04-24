@@ -12,5 +12,9 @@ data class StoryModel(
     @field:SerializedName("photoUrl")
     val photoUrl: String,
     @field:SerializedName("error")
-    val createdAt: String
+    val createdAt: String,
+    @field:SerializedName("lat")
+    val lat: Double,
+    @field:SerializedName("lon")
+    val lon: Double,
 )

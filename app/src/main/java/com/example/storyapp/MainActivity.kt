@@ -18,6 +18,7 @@ import com.example.storyapp.api.ApiConfig
 import com.example.storyapp.api.StoryResponse
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.detail.DetailStoryActivity
+import com.example.storyapp.maps.ListMapsActivity
 import com.example.storyapp.model.StoryModel
 import com.example.storyapp.model.User
 import com.example.storyapp.model.UserPreference
@@ -83,9 +84,30 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Log.d("Berhasil", response.message())
                     val responseBody = response.body()
+                    val listlat = ArrayList<Double>()
+                    val listlon = ArrayList<Double>()
+                    if (responseBody != null) {
+                        for(a in responseBody.listStory){
+                            listlat.add(a.lat)
+                            listlon.add(a.lon)
+                        }
+                        Log.d("ahhh", listlat.toString())
+                        Log.d("ahhh2", listlon.toString())
+                    }
+
+                    binding.buttonmap.setOnClickListener {
+//                        val bundle = Bundle()
+//                        bundle.putSerializable("latarr", listlat)
+//                        bundle.putSerializable("lonarr", listlon)
+                        val intent = Intent(this@MainActivity, ListMapsActivity::class.java)
+                        intent.putExtra("lat", listlat)
+                        intent.putExtra("lon", listlon)
+                        startActivity(intent)
+                    }
                     recyclerView = binding.recycleView.apply {
                         if (responseBody != null) {
                             storyAdapter = StoryAdapter(responseBody.listStory)
+
                             storyAdapter.setOnItemClickCallback(object :
                                 StoryAdapter.OnItemClickCallback {
                                 override fun onItemClicked(data: StoryModel) {
@@ -94,11 +116,14 @@ class MainActivity : AppCompatActivity() {
                                         DetailStoryActivity::class.java
                                     ).also {
                                         it.apply {
+
                                             val userdata = Bundle()
                                             userdata.putString("id", data.id)
                                             userdata.putString("name", data.name)
                                             userdata.putString("photoUrl", data.photoUrl)
                                             userdata.putString("description", data.description)
+                                            userdata.putDouble("lat", data.lat)
+                                            userdata.putDouble("lon", data.lon)
                                             putExtras(userdata)
                                         }
                                         startActivity(it)
@@ -138,6 +163,8 @@ class MainActivity : AppCompatActivity() {
             intent.putExtras(tokenforupload)
             startActivity(intent)
         }
+
+
     }
 
     private fun showLoading(state: Boolean) {

@@ -25,11 +25,11 @@
         android:layout_marginStart="40dp"
         android:layout_marginBottom="16dp"
         android:text="@string/logout"
-        android:textColor="@color/white"
+        android:textColor="#4E342E"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/buttonupload"
@@ -37,11 +37,10 @@
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:text="@string/upload"
-        android:textColor="@color/white"
+        android:textColor="#4E342E"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline9" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
@@ -79,6 +78,17 @@
         app:layout_constraintStart_toEndOf="@+id/recycleView"
         app:layout_constraintStart_toStartOf="@+id/recycleView"
         app:layout_constraintTop_toTopOf="@+id/recycleView" />
+
+    <Button
+        android:id="@+id/buttonmap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_their_location"
+        android:textColor="#4E342E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonupload"
+        app:layout_constraintStart_toEndOf="@+id/buttonlogout"
+        app:layout_constraintTop_toBottomOf="@+id/recycleView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,5 +16,13 @@
     <string name="gallery">Galeri</string>
     <string name="setting_language">Pengaturan Bahasa</string>
     <string name="description">Deskripsi</string>
+    <string name="title_activity_maps">Lokasi User</string>
+    <string name="see_their_location">Lihat Lokasi User</string>
     <string name="profilepic">Foto Profil</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
+    <string name="title_activity_list_maps">Map dari User</string>
+    <string name="switch_camera">ganti kamera</string>
 </resources>

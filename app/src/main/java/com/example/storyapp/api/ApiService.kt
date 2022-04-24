@@ -66,7 +66,7 @@ interface ApiService {
     ): Call<LoginResponse>
 
 
-    @GET("/v1/stories")
+    @GET("/v1/stories?location=1")
     fun fetchPosts(
         @Header("Authorization") token: String
     ): Call<StoryResponse>
