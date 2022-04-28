@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.StoryApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple</item>
-        <item name="colorPrimaryVariant">@color/purpleD</item>
-        <item name="colorOnPrimary">@color/purpleL</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/BlueDark</item>
+        <item name="colorOnPrimary">@color/blueLight</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/navy</item>
         <item name="colorSecondaryVariant">@color/navyD</item>

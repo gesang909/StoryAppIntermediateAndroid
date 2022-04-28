@@ -182,6 +182,8 @@ class UploadActivity : AppCompatActivity() {
 
             val descriptions = description.toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val lat = 12.22222222
+            val lon = -12.2222222222
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "photo",
                 file.name,
@@ -191,7 +193,7 @@ class UploadActivity : AppCompatActivity() {
             val token = bundle?.getString("token")
 
             token?.let {
-                ApiConfig().getApiService().uploadImage("Bearer $it", descriptions, imageMultipart)
+                ApiConfig().getApiService().uploadImage("Bearer $it",descriptions,imageMultipart, lat.toFloat(), lon.toFloat())
             }
                 ?.enqueue(object : Callback<FileUploadResponse> {
                     override fun onResponse(

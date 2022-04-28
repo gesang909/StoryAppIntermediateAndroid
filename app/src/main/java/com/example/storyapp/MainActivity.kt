@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
         manager = LinearLayoutManager(this)
         binding.recycleView.layoutManager = manager
         setupViewModel()
-
     }
 
     private fun getData(token:String){
@@ -116,7 +115,7 @@ class MainActivity : AppCompatActivity() {
     private fun getMaps(token: String) {
         showLoading(false)
         Log.d("TOKEN", token)
-        val stories = ApiConfig().getApiService().fetchPosts("Bearer $token")
+        val stories = ApiConfig().getApiService().fetchPosts("Bearer $token", 20)
         stories.enqueue(object : Callback<StoryResponse> {
             override fun onResponse(
                 call: Call<StoryResponse>,
@@ -126,18 +125,22 @@ class MainActivity : AppCompatActivity() {
 
                     Log.d("Berhasil", response.message())
                     val responseBody = response.body()
+                    val listname = ArrayList<String>()
                     val listlat = ArrayList<Double>()
                     val listlon = ArrayList<Double>()
                     if (responseBody != null) {
                         for (a in responseBody.listStory) {
+                            listname.add(a.name)
                             listlat.add(a.lat)
                             listlon.add(a.lon)
                         }
+                        Log.d("namaaaaaa", listname.toString())
                         Log.d("ahhh", listlat.toString())
                         Log.d("ahhh2", listlon.toString())
                     }
                     binding.buttonmap.setOnClickListener {
                         val intent = Intent(this@MainActivity, ListMapsActivity::class.java)
+                        intent.putExtra("name", listname)
                         intent.putExtra("lat", listlat)
                         intent.putExtra("lon", listlon)
                         startActivity(intent)

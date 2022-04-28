@@ -79,7 +79,8 @@ interface ApiService {
 
     @GET("/v1/stories?location=1")
     fun fetchPosts(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Query("size") size:Int,
     ): Call<StoryResponse>
 
     @GET("/v1/stories?location=1")
@@ -96,6 +97,8 @@ interface ApiService {
         token: String,
         @Part("description") description: RequestBody,
         @Part file: MultipartBody.Part,
+        @Part("lat") lat: Float,
+        @Part("lon") lon: Float
     ): Call<FileUploadResponse>
 }
 

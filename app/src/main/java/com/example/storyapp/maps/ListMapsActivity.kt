@@ -73,9 +73,11 @@ class ListMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val intent = intent.extras
         val latarr = intent?.get("lat") as ArrayList<*>
         val lonarr = intent.get("lon") as ArrayList<*>
+        val listname = intent.get("name") as ArrayList<*>
 
         Log.d("AWWA", latarr.toString())
         Log.d("AWWA2", lonarr.toString())
+        Log.d("AWWA2", listname.toString())
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
@@ -83,13 +85,12 @@ class ListMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             // below line is use to add marker to each location of our array list.
             val a = LatLng(latarr[i] as Double, lonarr[i] as Double)
-            mMap.addMarker(MarkerOptions().position(a).title("Marker"))
+            mMap.addMarker(MarkerOptions().position(a).title("${listname[i] as String?}'s location"))
 
             // below line is use to move our camera to the specific location.
             mMap.moveCamera(CameraUpdateFactory.newLatLng(a))
         }
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latarr[1] as Double, lonarr[1] as Double), 15f))
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isIndoorLevelPickerEnabled = true
         mMap.uiSettings.isCompassEnabled = true

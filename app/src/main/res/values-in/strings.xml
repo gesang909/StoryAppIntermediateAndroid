@@ -26,4 +26,5 @@
     <string name="title_activity_list_maps">Map dari User</string>
     <string name="switch_camera">ganti kamera</string>
     <string name="retry">Ulang</string>
+    <string name="warning">Harus lebih dari 6 karakter</string>
 </resources>

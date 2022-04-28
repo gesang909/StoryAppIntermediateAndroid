@@ -22,7 +22,6 @@ class MainViewModel(private val pref: UserPreference) : ViewModel() {
         return repository.getSearchResultStream(token).cachedIn(viewModelScope)
     }
 
-
     fun getToken(): LiveData<User> {
         return pref.getToken().asLiveData()
     }
