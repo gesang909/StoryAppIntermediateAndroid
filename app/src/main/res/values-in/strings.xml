@@ -25,4 +25,5 @@
     <string name="hybrid_type">Hybrid</string>
     <string name="title_activity_list_maps">Map dari User</string>
     <string name="switch_camera">ganti kamera</string>
+    <string name="retry">Ulang</string>
 </resources>

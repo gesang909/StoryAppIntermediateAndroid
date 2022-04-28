@@ -31,6 +31,17 @@ data class StoryResponse(
     val listStory: ArrayList<StoryModel>
 )
 
+data class ResponseItem<T>(
+    @field:SerializedName("error")
+    val error: Boolean,
+
+    @field:SerializedName("message")
+    val message: String,
+
+    @field:SerializedName("listStory")
+    val listStory: List<T>
+)
+
 data class LoginResponse(
     @field:SerializedName("error")
     val error: Boolean,
@@ -70,6 +81,13 @@ interface ApiService {
     fun fetchPosts(
         @Header("Authorization") token: String
     ): Call<StoryResponse>
+
+    @GET("/v1/stories?location=1")
+    fun fetchStories(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+    ): Call<ResponseItem<StoryModel>>
 
     @Multipart
     @POST("/v1/stories")

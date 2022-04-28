@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.example.storyapp.databinding.StoryItemBinding
 import com.example.storyapp.model.StoryModel
 
-class StoryAdapter(private val listStory: ArrayList<StoryModel>) :
-    RecyclerView.Adapter<StoryAdapter.ListViewHolder>() {
+class StoryAdapterUnused(private val listStory: ArrayList<StoryModel>) :
+    RecyclerView.Adapter<StoryAdapterUnused.ListViewHolder>() {
     private lateinit var binding: StoryItemBinding
     private lateinit var onItemClickCallback: OnItemClickCallback
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {

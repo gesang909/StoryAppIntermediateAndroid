@@ -11,9 +11,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.storyapp.adapter.StoryAdapter
+import com.example.storyapp.adapter.LoadingStateAdapter
+import com.example.storyapp.adapter.StoryPagingAdapter
 import com.example.storyapp.api.ApiConfig
 import com.example.storyapp.api.StoryResponse
 import com.example.storyapp.databinding.ActivityMainBinding
@@ -25,12 +27,13 @@ import com.example.storyapp.model.UserPreference
 import com.example.storyapp.model.ViewModelFactory
 import com.example.storyapp.upload.UploadActivity
 import com.example.storyapp.welcome.WelcomeActivity
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,11 +41,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModel: MainViewModel
 
     private lateinit var manager: RecyclerView.LayoutManager
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var storyAdapter: StoryAdapter
 
     private lateinit var user: User
-//    private var token: String = ""
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,18 +51,56 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         manager = LinearLayoutManager(this)
-
+        binding.recycleView.layoutManager = manager
         setupViewModel()
+
+    }
+
+    private fun getData(token:String){
+        showLoading(false)
+        val adapter = StoryPagingAdapter()
+        binding.recycleView.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            })
+        lifecycleScope.launch {
+            mainViewModel.getStories(token).collectLatest {
+                    data ->
+                adapter.submitData(data)
+            }
+        }
+        adapter.setOnItemClickCallback(object : StoryPagingAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: StoryModel) {
+                Intent(
+                    this@MainActivity,
+                    DetailStoryActivity::class.java
+                ).also {
+                    it.apply {
+                        val userdata = Bundle()
+                        userdata.putString("id", data.id)
+                        userdata.putString("name", data.name)
+                        userdata.putString("photoUrl", data.photoUrl)
+                        userdata.putString("description", data.description)
+                        userdata.putDouble("lat", data.lat)
+                        userdata.putDouble("lon", data.lon)
+                        putExtras(userdata)
+                    }
+                    startActivity(it)
+                }
+            }
+        })
     }
 
     private fun setupViewModel() {
+        showLoading(true)
         mainViewModel = ViewModelProvider(
             this,
             ViewModelFactory(UserPreference.getInstance(dataStore))
         )[MainViewModel::class.java]
         mainViewModel.getToken().observe(this) { userToken ->
             this.user = userToken
-            getAllStories(userToken.token)
+            getData(userToken.token)
+            getMaps(userToken.token)
             setupAction(userToken.token)
             if (user.isLogin) {
                 binding.textView.text = user.name
@@ -69,11 +108,13 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
             }
+
         }
     }
 
-    private fun getAllStories(token: String) {
-        showLoading(true)
+
+    private fun getMaps(token: String) {
+        showLoading(false)
         Log.d("TOKEN", token)
         val stories = ApiConfig().getApiService().fetchPosts("Bearer $token")
         stories.enqueue(object : Callback<StoryResponse> {
@@ -82,58 +123,24 @@ class MainActivity : AppCompatActivity() {
                 response: Response<StoryResponse>
             ) {
                 if (response.isSuccessful) {
+
                     Log.d("Berhasil", response.message())
                     val responseBody = response.body()
                     val listlat = ArrayList<Double>()
                     val listlon = ArrayList<Double>()
                     if (responseBody != null) {
-                        for(a in responseBody.listStory){
+                        for (a in responseBody.listStory) {
                             listlat.add(a.lat)
                             listlon.add(a.lon)
                         }
                         Log.d("ahhh", listlat.toString())
                         Log.d("ahhh2", listlon.toString())
                     }
-
                     binding.buttonmap.setOnClickListener {
-//                        val bundle = Bundle()
-//                        bundle.putSerializable("latarr", listlat)
-//                        bundle.putSerializable("lonarr", listlon)
                         val intent = Intent(this@MainActivity, ListMapsActivity::class.java)
                         intent.putExtra("lat", listlat)
                         intent.putExtra("lon", listlon)
                         startActivity(intent)
-                    }
-                    recyclerView = binding.recycleView.apply {
-                        if (responseBody != null) {
-                            storyAdapter = StoryAdapter(responseBody.listStory)
-
-                            storyAdapter.setOnItemClickCallback(object :
-                                StoryAdapter.OnItemClickCallback {
-                                override fun onItemClicked(data: StoryModel) {
-                                    Intent(
-                                        this@MainActivity,
-                                        DetailStoryActivity::class.java
-                                    ).also {
-                                        it.apply {
-
-                                            val userdata = Bundle()
-                                            userdata.putString("id", data.id)
-                                            userdata.putString("name", data.name)
-                                            userdata.putString("photoUrl", data.photoUrl)
-                                            userdata.putString("description", data.description)
-                                            userdata.putDouble("lat", data.lat)
-                                            userdata.putDouble("lon", data.lon)
-                                            putExtras(userdata)
-                                        }
-                                        startActivity(it)
-                                    }
-                                }
-                            })
-                        }
-                        layoutManager = manager
-                        adapter = storyAdapter
-                        showLoading(false)
                     }
                 }
             }
