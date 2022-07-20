@@ -1,2 +1,2 @@
 # StoryAppIntermediateAndroid
-Submission 1 for Intermediate Android Project
+Submission Intermediate Android Project
